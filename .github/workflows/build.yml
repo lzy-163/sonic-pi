@@ -122,8 +122,9 @@ jobs:
       # For windows we build a symlink in the bash shell because the windows method does not seem to work.
       - name: Add SymLink for Windows
         working-directory: ${{github.workspace}}/app/server/native
+        shell: bash
         run: |
-          ln -s ${{steps.ruby-inst.outputs.ruby-prefix}} ruby
+          ln -s "${{steps.ruby-inst.outputs.ruby-prefix}}" ruby
         if: matrix.os == 'windows-latest'
 
         # Get Qt
@@ -328,7 +329,7 @@ jobs:
         working-directory: ${{ github.workspace }}\app\build\api-tests
         env:
           SONIC_PI_ENV: test
-        run: ctest --verbose
+        run: ctest --verbose -C ${{ matrix.build_type }} --no-tests=error
         if: matrix.os == 'windows-latest'
 
 
