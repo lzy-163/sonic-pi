@@ -122,6 +122,7 @@ jobs:
       # For windows we build a symlink in the bash shell because the windows method does not seem to work.
       - name: Add SymLink for Windows
         working-directory: ${{github.workspace}}/app/server/native
+        shell: bash
         run: |
           ln -s ${{steps.ruby-inst.outputs.ruby-prefix}} ruby
         if: matrix.os == 'windows-latest'
